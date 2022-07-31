@@ -8,3 +8,5 @@ npx tailwindcss -i ./src/style/input.cs -o ./dist/style/output.css --watch
 npx tsc ./src/script/app.ts --outDir ./dist/script/ --watch
 php -s 0.0.0.0:8000
 ```
+
+All commands must be started in different instances of terminal
