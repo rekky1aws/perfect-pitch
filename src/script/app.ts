@@ -12,14 +12,14 @@ function playSound (): void
 {
 	var context = new AudioContext()
 	var o = context.createOscillator()
-	var  g = context.createGain()
+	var  g = context.createGain();
+	o.type = "triangle";
 	o.frequency.value = frequency;
 	o.connect(g)
 	g.connect(context.destination)
 	o.start(0);
 
 	g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 2)
-	console.log(o);
 }
 
 function changeSound()
@@ -41,9 +41,12 @@ async function loadNotes ()
 		let text = await json.text();
 		text = text.split("'").join("\"");
 		let arr = text.split('\n');
-		arr.shift();
-		let result = JSON.parse("{\n" + arr.join('\n'));
-		// console.log(result);
+		// Getting rid of octave 0 (too low) and misplaced ligne at start
+		arr = arr.splice(18);
+		// Getting rid of octaves 7 and 8 (too high)
+		arr.splice(102);
+		arr[arr.length - 1] = arr[arr.length - 1].replace(',', '');
+		let result = JSON.parse("{\n" + arr.join('\n') + "}");
 		return result;
 	}
 }
