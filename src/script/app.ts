@@ -101,7 +101,7 @@ function playSound (): void
 function changeSound()
 {
 	let noteNames = Object.keys(noteTable);
-	let noteName = noteNames[Math.floor(Math.random() * noteNames.length)];
+	let noteName: string = noteNames[Math.floor(Math.random() * noteNames.length)];
 	let frequency = noteTable[noteName];
 	console.log(noteName, frequency);
 	playSound();
