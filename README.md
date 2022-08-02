@@ -1,8 +1,8 @@
 # Pefect Pitch Trainer
 
 Small webpage project to learn musical perfect pitch.
-
 ## Technologies
+
 
 :writing_hand: TypeScript
 
@@ -19,4 +19,7 @@ npx tsc ./src/script/app.ts --outDir ./dist/script/ --watch
 php -S 0.0.0.0:8000
 ```
 
-All commands must be started in different instances of terminal
+You can do it to see all errors and warning.
+All commands must be started in different instances of terminal.
+
+Otherwise, you can execute `bin/run` to execute all commands above. You'll only be able to see the logs for TypeScript Compilation.
