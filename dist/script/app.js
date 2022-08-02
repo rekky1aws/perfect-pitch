@@ -1,44 +1,83 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 // Pitch game
-var play_button = document.querySelector('#play-button');
-var change_button = document.querySelector('#change-button');
-play_button === null || play_button === void 0 ? void 0 : play_button.addEventListener('click', playSound);
-change_button === null || change_button === void 0 ? void 0 : change_button.addEventListener('click', changeSound);
+var playButton = document.querySelector('#play-button');
+var changeButton = document.querySelector('#change-button');
+var notesGrid = document.querySelector('#notes-grid');
+var noteTable = {
+    "C1": 32.7,
+    "C#1": 34.65,
+    "D1": 36.71,
+    "D#1": 38.89,
+    "E1": 41.2,
+    "F1": 43.65,
+    "F#1": 46.25,
+    "G1": 49,
+    "G#1": 51.91,
+    "A1": 55,
+    "A#1": 58.27,
+    "B1": 61.74,
+    "C2": 65.41,
+    "C#2": 69.3,
+    "D2": 73.42,
+    "D#2": 77.78,
+    "E2": 82.41,
+    "F2": 87.31,
+    "F#2": 92.5,
+    "G2": 98,
+    "G#2": 103.83,
+    "A2": 110,
+    "A#2": 116.54,
+    "B2": 123.47,
+    "C3": 130.81,
+    "C#3": 138.59,
+    "D3": 146.83,
+    "D#3": 155.56,
+    "E3": 164.81,
+    "F3": 174.61,
+    "F#3": 185,
+    "G3": 196,
+    "G#3": 207.65,
+    "A3": 220,
+    "A#3": 233.08,
+    "B3": 246.94,
+    "C4": 261.63,
+    "C#4": 277.18,
+    "D4": 293.66,
+    "D#4": 311.13,
+    "E4": 329.63,
+    "F4": 349.23,
+    "F#4": 369.99,
+    "G4": 392,
+    "G#4": 415.3,
+    "A4": 440,
+    "A#4": 466.16,
+    "B4": 493.88,
+    "C5": 523.25,
+    "C#5": 554.37,
+    "D5": 587.33,
+    "D#5": 622.25,
+    "E5": 659.26,
+    "F5": 698.46,
+    "F#5": 739.99,
+    "G5": 783.99,
+    "G#5": 830.61,
+    "A5": 880,
+    "A#5": 932.33,
+    "B5": 987.77,
+    "C6": 1046.5,
+    "C#6": 1108.73,
+    "D6": 1174.66,
+    "D#6": 1244.51,
+    "E6": 1318.51,
+    "F6": 1396.91,
+    "F#6": 1479.98,
+    "G6": 1567.98,
+    "G#6": 1661.22,
+    "A6": 1760,
+    "A#6": 1864.66,
+    "B6": 1975.53
+};
+playButton === null || playButton === void 0 ? void 0 : playButton.addEventListener('click', playSound);
+changeButton === null || changeButton === void 0 ? void 0 : changeButton.addEventListener('click', changeSound);
 var frequency = 0;
 var noteName = "not started";
 function playSound() {
@@ -54,40 +93,25 @@ function playSound() {
 }
 function changeSound() {
     var noteNames = Object.keys(noteTable);
-    noteName = noteNames[Math.floor(Math.random() * noteNames.length)];
-    frequency = noteTable[noteName];
+    var noteName = noteNames[Math.floor(Math.random() * noteNames.length)];
+    var frequency = noteTable[noteName];
     console.log(noteName, frequency);
     playSound();
     // console.log(noteNames);
 }
 function loadNotes() {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, json, text, arr, result;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch("https://gist.githubusercontent.com/marcgg/94e97def0e8694f906443ed5262e9cbb/raw/a303dd6d5eafd155d988a629e88018bb95e10bed/notevalues.json")];
-                case 1:
-                    response = _a.sent();
-                    if (!response.ok) return [3 /*break*/, 4];
-                    return [4 /*yield*/, response.blob()];
-                case 2:
-                    json = _a.sent();
-                    return [4 /*yield*/, json.text()];
-                case 3:
-                    text = _a.sent();
-                    text = text.split("'").join("\"");
-                    arr = text.split('\n');
-                    // Getting rid of octave 0 (too low) and misplaced ligne at start
-                    arr = arr.splice(18);
-                    // Getting rid of octaves 7 and 8 (too high)
-                    arr.splice(102);
-                    arr[arr.length - 1] = arr[arr.length - 1].replace(',', '');
-                    result = JSON.parse("{\n" + arr.join('\n') + "}");
-                    return [2 /*return*/, result];
-                case 4: return [2 /*return*/];
-            }
-        });
+    Object.keys(noteTable).forEach(function (element) {
+        var noteDiv = document.createElement('div');
+        noteDiv.className = "note bg-blue-200 text-black flex flex-col justify-center rounded hover:scale-105 py-4";
+        var noteName = document.createElement('div');
+        noteName.className = "note-name text-center font-bold";
+        noteName.textContent = element;
+        var noteValue = document.createElement('div');
+        noteValue.className = "note-value text-center";
+        noteValue.textContent = noteTable[element];
+        noteDiv.appendChild(noteName);
+        noteDiv.appendChild(noteValue);
+        notesGrid === null || notesGrid === void 0 ? void 0 : notesGrid.appendChild(noteDiv);
     });
 }
-var noteTable;
-var noteResponse = loadNotes().then(function (value) { return noteTable = value; });
+loadNotes();
