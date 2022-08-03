@@ -1,6 +1,9 @@
 #!/bin/bash
 
 echo 'Lancement du serveur'
-npx tailwindcss -i ./src/style/input.css -o ./dist/style/output.css --watch &
-npx tsc ./src/script/app.ts --outDir ./dist/script/ --watch &
-php -S 0.0.0.0:8000
+
+gnome-terminal --tab -x bash -c 'npx tailwindcss -i ./src/style/input.css -o ./dist/style/output.css --watch' &
+gnome-terminal --tab -x bash -c 'npx tsc ./src/script/app.ts --outDir ./dist/script/ --watch' &
+gnome-terminal --tab -x bash -c 'php -S 0.0.0.0:8000' &
+clear
+# php -S 0.0.0.0:8000
