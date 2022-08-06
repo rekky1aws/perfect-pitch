@@ -2,6 +2,7 @@
 const playButton = document.querySelector('#play-button');
 const changeButton = document.querySelector('#change-button');
 const notesGrid = document.querySelector('#notes-grid');
+const selectedNote = document.querySelector('#selected-note');
 
 const noteTable = {
     "C1": 32.7,
@@ -83,6 +84,7 @@ changeButton?.addEventListener('click', changeSound);
 
 var frequency: number = 0;
 var noteName: string = "not started";
+var selectedNoteFrequency: number;
 
 function playSound (): void
 {
@@ -108,11 +110,29 @@ function changeSound()
 	// console.log(noteNames);
 }
 
+function selectNote (event: Event)
+{
+    let noteDiv;
+
+    if (event?.target?.classList[0] === 'note') {
+        noteDiv = event.target;
+    } else {
+        noteDiv = event?.target?.parentNode;
+    }
+
+    console.log(noteDiv.childNodes);
+    selectedNoteFrequency = parseFloat(noteDiv.childNodes[1].textContent);
+    selectedNote.textContent = noteDiv.childNodes[0].textContent
+    console.log(selectedNoteFrequency); 
+    // selectedNote?.textContent = noteDiv.childNodes
+}
+
 function loadNotes ()
 {	
 	Object.keys(noteTable).forEach( (element) => {
 		let noteDiv = document.createElement('div');
-		noteDiv.className = "note bg-blue-200 text-black flex flex-col justify-center rounded hover:scale-105 py-4";
+		noteDiv.className = "note bg-blue-200 text-black flex flex-col justify-center rounded hover:scale-105 py-4 focus-within:bg-red-500";
+        noteDiv.addEventListener('click', selectNote);
 
 		let noteName = document.createElement('div');
 		noteName.className = "note-name text-center font-bold";
@@ -126,7 +146,6 @@ function loadNotes ()
 		noteDiv.appendChild(noteValue);
 		notesGrid?.appendChild(noteDiv);
 	});
-
 }
 
 loadNotes();

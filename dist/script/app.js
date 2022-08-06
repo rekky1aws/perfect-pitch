@@ -2,6 +2,7 @@
 var playButton = document.querySelector('#play-button');
 var changeButton = document.querySelector('#change-button');
 var notesGrid = document.querySelector('#notes-grid');
+var selectedNote = document.querySelector('#selected-note');
 var noteTable = {
     "C1": 32.7,
     "C#1": 34.65,
@@ -80,6 +81,7 @@ playButton === null || playButton === void 0 ? void 0 : playButton.addEventListe
 changeButton === null || changeButton === void 0 ? void 0 : changeButton.addEventListener('click', changeSound);
 var frequency = 0;
 var noteName = "not started";
+var selectedNoteFrequency;
 function playSound() {
     var context = new AudioContext();
     var o = context.createOscillator();
@@ -99,10 +101,26 @@ function changeSound() {
     playSound();
     // console.log(noteNames);
 }
+function selectNote(event) {
+    var _a, _b;
+    var noteDiv;
+    if (((_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.classList[0]) === 'note') {
+        noteDiv = event.target;
+    }
+    else {
+        noteDiv = (_b = event === null || event === void 0 ? void 0 : event.target) === null || _b === void 0 ? void 0 : _b.parentNode;
+    }
+    console.log(noteDiv.childNodes);
+    selectedNoteFrequency = parseFloat(noteDiv.childNodes[1].textContent);
+    selectedNote.textContent = noteDiv.childNodes[0].textContent;
+    console.log(selectedNoteFrequency);
+    // selectedNote?.textContent = noteDiv.childNodes
+}
 function loadNotes() {
     Object.keys(noteTable).forEach(function (element) {
         var noteDiv = document.createElement('div');
-        noteDiv.className = "note bg-blue-200 text-black flex flex-col justify-center rounded hover:scale-105 py-4";
+        noteDiv.className = "note bg-blue-200 text-black flex flex-col justify-center rounded hover:scale-105 py-4 focus-within:bg-red-500";
+        noteDiv.addEventListener('click', selectNote);
         var noteName = document.createElement('div');
         noteName.className = "note-name text-center font-bold";
         noteName.textContent = element;
