@@ -3,7 +3,7 @@
 echo 'Lancement du serveur'
 
 gnome-terminal --tab -x bash -c 'npx tailwindcss -i ./src/style/input.css -o ./dist/style/output.css --watch' &
-gnome-terminal --tab -x bash -c 'npx tsc ./src/script/app.ts --outDir ./dist/script/ --watch' &
+gnome-terminal --tab -x bash -c 'npx tsc ./src/script/ --outDir ./dist/script/ --watch' &
 gnome-terminal --tab -x bash -c 'php -S 0.0.0.0:8000' &
 clear
 # php -S 0.0.0.0:8000
