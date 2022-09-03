@@ -129,7 +129,7 @@ function loadNotes ()
 {	
 	Object.keys(noteTable).forEach( (element) => {
 		let noteDiv = document.createElement('div');
-		noteDiv.className = 'note bg-blue-200 text-black flex flex-col justify-center rounded hover:scale-105 py-4 focus-within:bg-red-500';
+		noteDiv.className = 'note bg-blue-200 text-black flex flex-col justify-center rounded hover:scale-105 py-4 active:scale-95';
         noteDiv.addEventListener('click', selectNote);
 
 		let noteName = document.createElement('div');
